@@ -166,9 +166,14 @@ def quiz_page():
         # Answer options using NiceGUI radio component
         session.selected_answer = None
         answer_radio = ui.radio(
-            options={i: option for i, option in enumerate(current_q["options"])},
+            options={i: '' for i, option in enumerate(current_q["options"])},  # Empty labels
             value=None
         ).classes('mb-6')
+
+        # Teleport math content to each radio button label
+        for i, option in enumerate(current_q["options"]):
+            with ui.teleport(f'#{answer_radio.html_id} > div:nth-child({i + 1}) .q-radio__label'):
+                ui.markdown(f"{chr(65 + i)}) {option}", extras=['latex'])  # A), B), C), etc.
 
         def update_selected_answer(value):
             session.selected_answer = value
