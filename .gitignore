@@ -27,3 +27,7 @@ htmlcov/
 
 # Ignore MacOS system files
 .DS_Store
+
+
+# Ignore Security files
+.storage_secret

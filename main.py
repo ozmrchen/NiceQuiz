@@ -1,11 +1,34 @@
+import secrets
 from nicegui import ui, app
 import json
 from typing import List, Dict, Any, Optional
 from datetime import datetime
-import base64
+import base64, uuid
 import os
 from quiz_bank import quiz_data
 
+
+# Function to get or create storage secret
+def get_storage_secret():
+    secret_file = '.storage_secret'
+
+    if os.path.exists(secret_file):
+        # Read existing secret
+        with open(secret_file, 'r') as f:
+            return f.read().strip()
+    else:
+        # Generate new secret and save it
+        secret = secrets.token_hex(32)
+        with open(secret_file, 'w') as f:
+            f.write(secret)
+        # Make file readable only by owner (Unix/Linux/Mac)
+        if os.name != 'nt':  # Not Windows
+            os.chmod(secret_file, 0o600)
+        return secret
+
+
+# Dictionary to store user sessions
+sessions = {}
 
 
 class QuizSession:
@@ -19,8 +42,26 @@ class QuizSession:
         self.selected_answer = None
 
 
-# Global quiz session
-session = QuizSession()
+def get_user_session() -> QuizSession:
+    # Use a simple approach - try to get from user storage, fallback to generating new session
+    try:
+        # Try to get existing session ID from user storage
+        user_data = app.storage.user
+        session_id = user_data.get('session_id')
+
+        if not session_id:
+            # Generate new session ID and store it
+            session_id = str(uuid.uuid4())
+            user_data['session_id'] = session_id
+
+    except Exception:
+        # Fallback: use a simple counter-based approach
+        session_id = f"session_{len(sessions)}"
+
+    if session_id not in sessions:
+        sessions[session_id] = QuizSession()
+
+    return sessions[session_id]
 
 
 def create_image_display(image_path: str, alt_text: str = "Question diagram") -> str:
@@ -59,6 +100,7 @@ def create_home_page():
 
 def start_quiz(quiz_name: str):
     """Initialize and start a quiz"""
+    session = get_user_session()
     session.current_quiz = quiz_name
     session.current_question = 0
     session.score = 0
@@ -73,6 +115,7 @@ def start_quiz(quiz_name: str):
 @ui.page('/quiz')
 def quiz_page():
     """Display the quiz questions with math rendering"""
+    session = get_user_session()
     if not session.current_quiz:
         ui.navigate.to('/')
         return
@@ -138,12 +181,14 @@ def quiz_page():
 
 def go_to_question(question_num: int):
     """Navigate to a specific question"""
+    session = get_user_session()
     session.current_question = question_num
     ui.navigate.to('/quiz')
 
 
 def submit_answer(selected_option: int):
     """Submit answer and move to next question or results"""
+    session = get_user_session()
     if selected_option is None:
         ui.notify('Please select an answer', type='warning')
         return
@@ -177,6 +222,7 @@ def submit_answer(selected_option: int):
 @ui.page('/results')
 def results_page():
     """Display quiz results with math rendering"""
+    session = get_user_session()
     if not session.quiz_completed:
         ui.navigate.to('/')
         return
@@ -274,5 +320,6 @@ ui.run(
     title='Nice Quiz Server',
     port=8080,
     show=True,
-    reload=False
+    reload=False,
+    storage_secret=get_storage_secret(),
 )
