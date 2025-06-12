@@ -269,11 +269,10 @@ def main_page():
     create_home_page()
 
 
-if __name__ in {"__main__", "__mp_main__"}:
-    # Run the server
-    ui.run(
-        title='Nice Quiz Server',
-        port=8080,
-        show=True,
-        reload=False
-    )
+# Run the server
+ui.run(
+    title='Nice Quiz Server',
+    port=8080,
+    show=True,
+    reload=False
+)
