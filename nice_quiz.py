@@ -114,7 +114,6 @@ def create_home_page():
                               color='primary')
 
 
-
 def start_quiz(quiz_name: str):
     """Initialize and start a quiz"""
     session.current_quiz = quiz_name
@@ -192,7 +191,6 @@ def quiz_page():
             ui.button('Next' if session.current_question < len(questions) - 1 else 'Finish',
                       on_click=lambda: submit_answer(answer_radio.value),
                       color='primary')
-
 
 
 def go_to_question(question_num: int):
@@ -286,7 +284,8 @@ def results_page():
                         f'</div>')
 
                 # Question with math
-                ui.html(f'<p class="mb-2"><strong>Q:</strong> {answer["question"]}</p>')
+                # ui.html(f'<p class="mb-2"><strong>Q:</strong> {answer["question"]}</p>')
+                ui.markdown(f"{answer['question']}", extras=['latex'])
 
                 # Display image if present
                 if answer.get("image"):
@@ -295,15 +294,21 @@ def results_page():
                 options = quiz_data[session.current_quiz][i]["options"]
 
                 # Selected answer with math
-                ui.html(f'<p class="mb-2"><strong>Your answer:</strong> '
-                        f'<span class="{status_color}">{options[answer["selected"]]}</span></p>')
+                ui.markdown(
+                    f"<p class='mb-2 {status_color}'><strong>Your answer:</strong> {options[answer['selected']]}</p>",
+                    extras=['latex'])
 
                 if not answer['is_correct']:
-                    ui.html(f'<p class="mb-2"><strong>Correct answer:</strong> '
-                            f'<span class="text-green-600">{options[answer["correct"]]}</span></p>')
+                    # ui.html(f'<p class="mb-2"><strong>Correct answer:</strong> '
+                    #         f'<span class="text-green-600">{options[answer["correct"]]}</span></p>')
+                    ui.markdown(f"<p class='mb-2'><strong>Correct answer:</strong> {options[answer['correct']]}</p>",
+                                extras=['latex'])
 
                 # Explanation with math
-                ui.html(f'<p class="text-sm text-gray-600"><strong>Explanation:</strong> {answer["explanation"]}</p>')
+                ui.markdown(
+                    f"<p class='text-sm text-gray-600'><strong>Explanation:</strong> {answer['explanation']}</p>",
+                    extras=['latex']
+                )
 
         # Action buttons
         with ui.row().classes('w-full justify-center gap-4 mt-6'):
@@ -313,7 +318,6 @@ def results_page():
             ui.button('Retake This Quiz',
                       on_click=lambda: start_quiz(session.current_quiz),
                       color='secondary')
-
 
 
 # Set up the main page
