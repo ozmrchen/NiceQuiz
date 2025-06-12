@@ -94,14 +94,14 @@ def create_image_display(image_path: str, alt_text: str = "Question diagram") ->
 
 def create_home_page():
     """Create the main quiz selection page"""
-    ui.page_title('Math Quiz Server - Test Your Knowledge')
+    ui.page_title('Nice Quiz Server - Test Your Knowledge')
 
     with ui.column().classes('w-full max-w-2xl mx-auto p-6'):
-        ui.html('<h1 class="text-3xl font-bold text-center mb-6">📊 Math Quiz Server</h1>')
-        ui.html('<p class="text-center mb-8 text-gray-600">Select a mathematics quiz to test your understanding</p>')
+        ui.html('<h1 class="text-3xl font-bold text-center mb-6">📊 Nice Quiz Server</h1>')
+        ui.html('<p class="text-center mb-8 text-gray-600">Select a quiz to test your understanding</p>')
 
         with ui.card().classes('w-full'):
-            ui.html('<h2 class="text-xl font-semibold mb-4">Available Math Quizzes</h2>')
+            ui.html('<h2 class="text-xl font-semibold mb-4">Available Quizzes</h2>')
 
             for quiz_name, questions in quiz_data.items():
                 with ui.row().classes('w-full justify-between items-center p-4 border rounded'):
@@ -325,7 +325,7 @@ def main_page():
 if __name__ in {"__main__", "__mp_main__"}:
     # Run the server
     ui.run(
-        title='Math Quiz Server',
+        title='Nice Quiz Server',
         port=8080,
         show=True,
         reload=False
