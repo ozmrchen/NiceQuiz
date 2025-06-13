@@ -1,0 +1,33 @@
+{
+    "title": "Learning Behaviours Survey",
+    "questions": [
+        {
+            "question": "Communication: Sharing ideas clearly and listening respectfully.\n\nHow often do you demonstrate this behaviour?",
+            "options": ["Never", "Inconsistently", "Often", "Consistently", "Always"],
+            "correct": 4,
+            "explanation": "This question is for self-assessment; there is no correct answer.",
+            "image": null
+        },
+        {
+            "question": "Collaboration: Working effectively with others toward a common goal.\n\nHow often do you demonstrate this behaviour?",
+            "options": ["Never", "Inconsistently", "Often", "Consistently", "Always"],
+            "correct": 4,
+            "explanation": "This question is for self-assessment; there is no correct answer.",
+            "image": null
+        },
+        {
+            "question": "Engaged Learning: Actively participating in lessons and completing learning tasks.\n\nHow often do you demonstrate this behaviour?",
+            "options": ["Never", "Inconsistently", "Often", "Consistently", "Always"],
+            "correct": 4,
+            "explanation": "This question is for self-assessment; there is no correct answer.",
+            "image": null
+        },
+        {
+            "question": "Behaviour: Following class expectations and demonstrating self-control.\n\nHow often do you demonstrate this behaviour?",
+            "options": ["Never", "Inconsistently", "Often", "Consistently", "Always"],
+            "correct": 4,
+            "explanation": "This question is for self-assessment; there is no correct answer.",
+            "image": null
+        }
+    ]
+}

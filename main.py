@@ -87,10 +87,13 @@ def create_home_page():
         with ui.card().classes('w-full'):
             ui.html('<h2 class="text-xl font-semibold mb-4">Available Quizzes</h2>')
 
-            for quiz_name, questions in quiz_data.items():
+            for quiz_name, quiz_content in quiz_data.items():
+                questions = quiz_content['questions']
+                title = quiz_content.get('title', quiz_name)
+
                 with ui.row().classes('w-full justify-between items-center p-4 border rounded'):
                     with ui.column():
-                        ui.html(f'<h3 class="font-medium">{quiz_name}</h3>')
+                        ui.html(f'<h3 class="font-medium">{title}</h3>')
                         ui.html(f'<p class="text-sm text-gray-500">{len(questions)} questions</p>')
 
                     ui.button('Start Quiz',
@@ -120,7 +123,7 @@ def quiz_page():
         ui.navigate.to('/')
         return
 
-    questions = quiz_data[session.current_quiz]
+    questions = quiz_data[session.current_quiz]['questions']
 
     if session.current_question >= len(questions):
         ui.navigate.to('/results')
@@ -128,7 +131,7 @@ def quiz_page():
 
     current_q = questions[session.current_question]
 
-    ui.page_title(f'Quiz: {session.current_quiz}')
+    ui.page_title(f'Quiz: {quiz_data[session.current_quiz].get("title", session.current_quiz)}')
 
     with ui.column().classes('w-full max-w-3xl mx-auto p-6'):
         # Progress bar
@@ -193,7 +196,7 @@ def submit_answer(selected_option: int):
         ui.notify('Please select an answer', type='warning')
         return
 
-    questions = quiz_data[session.current_quiz]
+    questions = quiz_data[session.current_quiz]['questions']
     current_q = questions[session.current_question]
 
     # Store the answer
@@ -227,7 +230,8 @@ def results_page():
         ui.navigate.to('/')
         return
 
-    questions = quiz_data[session.current_quiz]
+    questions = quiz_data[session.current_quiz]['questions']
+    title = title = quiz_data[session.current_quiz].get('title', session.current_quiz)
     total_questions = len(questions)
     percentage = round((session.score / total_questions) * 100)
 
@@ -238,7 +242,7 @@ def results_page():
         ui.html('<h1 class="text-3xl font-bold text-center mb-6">🎉 Quiz Complete!</h1>')
 
         with ui.card().classes('w-full mb-6'):
-            ui.html(f'<h2 class="text-2xl font-semibold mb-4">{session.current_quiz} Results</h2>')
+            ui.html(f'<h2 class="text-2xl font-semibold mb-4">{title} Results</h2>')
 
             # Score display
             color = 'text-green-600' if percentage >= 70 else 'text-yellow-600' if percentage >= 50 else 'text-red-600'
@@ -280,7 +284,7 @@ def results_page():
                 if answer.get("image"):
                     ui.html(create_image_display(answer["image"]))
 
-                options = quiz_data[session.current_quiz][i]["options"]
+                options = quiz_data[session.current_quiz]["questions"][i]["options"]
 
                 # Selected answer with math
                 ui.markdown(
