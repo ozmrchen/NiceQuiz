@@ -354,6 +354,8 @@ def dashboard():
 
         # Start quiz button
         if current_name:
+            # Show session ID as account id and student name
+            ui.html(f'<p>ID: {session_id[:6]} Name: {current_name}</p>')
             ui.button('Start Quiz', on_click=lambda: ui.navigate.to('/'))
 
 
