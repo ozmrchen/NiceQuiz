@@ -31,3 +31,7 @@ htmlcov/
 
 # Ignore Security files
 .storage_secret
+
+# Ignore User files
+.nicegui/
+results/

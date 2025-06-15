@@ -6,6 +6,7 @@ from datetime import datetime
 import base64, uuid
 import os
 from quiz_bank import quiz_data
+from quiz_results.recorder import save_quiz_result
 
 
 # Function to get or create storage secret
@@ -243,7 +244,7 @@ def results_page():
         return
 
     questions = quiz_data[session.current_quiz]['questions']
-    title = title = quiz_data[session.current_quiz].get('title', session.current_quiz)
+    title = quiz_data[session.current_quiz].get('title', session.current_quiz)
     total_questions = len(questions)
     percentage = round((session.score / total_questions) * 100)
 
@@ -315,6 +316,15 @@ def results_page():
                     extras=['latex']
                 )
 
+        # Record quiz result
+        user_data = app.storage.user
+        save_quiz_result(
+            student_name=user_data['student_name'],
+            quiz_name=session.current_quiz,
+            answers=[ans['selected'] for ans in session.answers],
+            score=f"{session.score}/{total_questions}"
+        )
+
         # Action buttons
         with ui.row().classes('w-full justify-center gap-4 mt-6'):
             ui.button('Take Another Quiz',
@@ -323,9 +333,6 @@ def results_page():
             ui.button('Retake This Quiz',
                       on_click=lambda: start_quiz(session.current_quiz),
                       color='secondary')
-
-
-
 
 
 @ui.page('/dashboard')
