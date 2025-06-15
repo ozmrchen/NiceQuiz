@@ -49,8 +49,12 @@ def get_user_session() -> QuizSession:
         user_data = app.storage.user
         session_id = user_data.get('session_id')
 
+        # Check if student name is missing
+        if not user_data.get('student_name'):
+            ui.navigate.to('/dashboard')
+
         if not session_id:
-            # Generate new session ID and store it
+            # Generate new session ID and store it. ie session_0, session_1, etc.
             session_id = str(uuid.uuid4())
             user_data['session_id'] = session_id
 
@@ -79,6 +83,12 @@ def create_image_display(image_path: str, alt_text: str = "Question diagram") ->
 def create_home_page():
     """Create the main quiz selection page"""
     ui.page_title('Nice Quiz Server - Test Your Knowledge')
+
+    user_data = app.storage.user
+
+    # Check if student name is set, if not redirect to dashboard
+    if not user_data.get('student_name'):
+        ui.navigate.to('/dashboard')
 
     with ui.column().classes('w-full max-w-2xl mx-auto p-6'):
         ui.html('<h1 class="text-3xl font-bold text-center mb-6">📊 Nice Quiz Server</h1>')
@@ -317,6 +327,34 @@ def results_page():
 @ui.page('/')
 def main_page():
     create_home_page()
+
+
+@ui.page('/dashboard')
+def dashboard():
+    user_data = app.storage.user
+    session_id = user_data.get('session_id', 'Unknown')
+    current_name = user_data.get('student_name', '')
+
+    with ui.column().classes('w-full max-w-md mx-auto p-6'):
+        ui.html('<h1 class="text-3xl font-bold text-center mb-6">📊 Nice Quiz Dashboard</h1>')
+        ui.html('<p class="text-center mb-8 text-gray-600">View Statistics</p>')
+
+        # Name entry
+        if current_name:
+            ui.html(f'<p class="mb-4">Welcome, <strong>{current_name}</strong>!</p>')
+        else:
+            name_input = ui.input('Your Name', value=current_name)
+            ui.button('Save Name', on_click=lambda: save_name(name_input.value))
+
+        # Start quiz button
+        if current_name:
+            ui.button('Start Quiz', on_click=lambda: ui.navigate.to('/'))
+
+
+def save_name(name):
+    user_data = app.storage.user
+    user_data['student_name'] = name
+    ui.navigate.reload()  # Refresh to show updated info
 
 
 # Run the server
