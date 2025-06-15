@@ -80,7 +80,9 @@ def create_image_display(image_path: str, alt_text: str = "Question diagram") ->
     '''
 
 
-def create_home_page():
+# Set up the main page
+@ui.page('/')
+def main_page():
     """Create the main quiz selection page"""
     ui.page_title('Nice Quiz Server - Test Your Knowledge')
 
@@ -323,10 +325,7 @@ def results_page():
                       color='secondary')
 
 
-# Set up the main page
-@ui.page('/')
-def main_page():
-    create_home_page()
+
 
 
 @ui.page('/dashboard')
