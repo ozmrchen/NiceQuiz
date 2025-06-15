@@ -1,0 +1,145 @@
+{
+    "title": "Wearable Technologies Project Quiz",
+    "questions": [
+        {
+            "question": "What does an output device do?",
+            "options": ["Sends information to the computer", "Helps the computer show information to us", "Lets us control the computer", "Connects to the internet"],
+            "correct": 1,
+            "explanation": "Output devices help the computer show or present information to users, like displays, speakers, or LEDs.",
+            "image": null
+        },
+        {
+            "question": "What is the one possible job of an input device?",
+            "options": ["To show results on a screen", "To let users control the computer", "To process data inside the computer", "To print documents"],
+            "correct": 1,
+            "explanation": "Input devices allow users to provide information or control commands to the computer system.",
+            "image": null
+        },
+        {
+            "question": "Which of these is NOT a built-in input on the micro:bit?",
+            "options": ["Buttons", "Accelerometer", "Ultrasound sensor", "Light sensor"],
+            "correct": 2,
+            "explanation": "The micro:bit has built-in buttons, accelerometer, and light sensor, but ultrasound sensors are external components.",
+            "image": null
+        },
+        {
+            "question": "What output feature does the latest micro:bit have?",
+            "options": ["RGB LED display", "Built-in speaker", "WiFi", "Laser radar"],
+            "correct": 1,
+            "explanation": "The latest micro:bit (v2) includes a built-in speaker for audio output.",
+            "image": null
+        },
+        {
+            "question": "What does the accelerometer measure?",
+            "options": ["Temperature changes", "Light levels", "How the device is moved or tilted", "Magnetic fields for direction"],
+            "correct": 2,
+            "explanation": "The accelerometer detects movement, tilt, and acceleration in different directions.",
+            "image": null
+        },
+        {
+            "question": "What are the red LEDs used for on the micro:bit?",
+            "options": ["Detecting magnetic fields (input)", "Displaying patterns and images (output)", "Measuring temperature (sensor)", "Both input for sound and output for play"],
+            "correct": 1,
+            "explanation": "The 5x5 grid of red LEDs is an output device used to display patterns, text, and images.",
+            "image": null
+        },
+        {
+            "question": "What is the main goal of the Tilt-o-meter project?",
+            "options": ["Play music based on tilt", "Show different colours on the GlowBit Rainbow when tilted", "Count steps using the accelerometer", "Sense touch on the micro:bit logo"],
+            "correct": 1,
+            "explanation": "The Tilt-o-meter project uses tilt detection to control LED colors on the GlowBit Rainbow strip.",
+            "image": null
+        },
+        {
+            "question": "What does `rainbow = neopixel.NeoPixel(pin0, 13)` do?",
+            "options": ["Clear all LEDs", "Import libraries for NeoPixel control", "Control a strip of LEDs connected to pin0", "Set an LED's color"],
+            "correct": 2,
+            "explanation": "This line creates a NeoPixel object to control 13 LEDs connected to pin0.",
+            "image": null
+        },
+        {
+            "question": "How many red LEDs are on the main display of the BBC micro:bit itself?",
+            "options": ["5", "13", "25", "100"],
+            "correct": 2,
+            "explanation": "The micro:bit has a 5x5 grid of red LEDs, making 25 LEDs total.",
+            "image": null
+        },
+        {
+            "question": "What does `rainbow.clear()` do?",
+            "options": ["Make animation smoother", "Send LED updates", "Turn off all LEDs", "Get tilt value"],
+            "correct": 2,
+            "explanation": "The clear() function turns off all LEDs in the NeoPixel strip.",
+            "image": null
+        },
+        {
+            "question": "What does `roll = accelerometer.get_x()` measure?",
+            "options": ["Temperature", "Magnetic field strength", "Tilt along the X-axis", "Light level"],
+            "correct": 2,
+            "explanation": "This gets the acceleration/tilt measurement along the X-axis of the micro:bit.",
+            "image": null
+        },
+        {
+            "question": "In the Tilt-o-meter code, which line is responsible for getting the micro:bit's tilt information?",
+            "options": ["`rainbow.show()`", "`gauge = min(max(gauge, 0), 12)`", "`roll = accelerometer.get_x()`", "`sleep(100)`"],
+            "correct": 2,
+            "explanation": "The `accelerometer.get_x()` function reads the tilt value from the accelerometer sensor.",
+            "image": null
+        },
+        {
+            "question": "From the code `rainbow = neopixel.NeoPixel(pin0, 13)`, what does the number 13 specifically tell us about the GlowBit Rainbow hardware?",
+            "options": ["It tells us the brightness level of the LEDs", "It represents the pin number on the micro:bit that the GlowBit is connected to", "It indicates that there are 13 individual LEDs on the GlowBit Rainbow strip that can be controlled", "It's the maximum speed at which the LEDs will change colour"],
+            "correct": 2,
+            "explanation": "The number 13 specifies how many individual LEDs are on the GlowBit Rainbow strip.",
+            "image": null
+        },
+        {
+            "question": "Why is `sleep(100)` used?",
+            "options": ["Reset accelerometer", "Save battery", "Pause for smoother animation", "Clear NeoPixel strip"],
+            "correct": 2,
+            "explanation": "The sleep function creates a small delay to make the LED animations appear smoother.",
+            "image": null
+        },
+        {
+            "question": "In the IPO model, what is the Input?",
+            "options": ["LED lighting up", "micro:bit turning tilt to number", "Physical motion (tilt) sensed by accelerometer", "`sleep(100)` for smoothness"],
+            "correct": 2,
+            "explanation": "The input is the physical tilt motion detected by the accelerometer sensor.",
+            "image": null
+        },
+        {
+            "question": "What is the Process in IPO?",
+            "options": ["Tilting micro:bit physically", "Lighting LED on GlowBit", "micro:bit converting tilt to number", "Attaching GlowBit to wearable"],
+            "correct": 2,
+            "explanation": "The process is the micro:bit converting the tilt sensor data into numerical values for LED control.",
+            "image": null
+        },
+        {
+            "question": "What is the Output in IPO?",
+            "options": ["micro:bit sensing tilt", "Numerical tilt value", "LED lighting up to show tilt", "Continuous loop checking tilt"],
+            "correct": 2,
+            "explanation": "The output is the visual display of LEDs lighting up to represent the tilt measurement.",
+            "image": null
+        },
+        {
+            "question": "Why is radio both an input and output device?",
+            "options": ["It uses two pins", "It can send and receive messages", "It can connect to the internet", "It detects lights coming in and out"],
+            "correct": 1,
+            "explanation": "Radio is both input and output because it can receive messages (input) and transmit messages (output).",
+            "image": null
+        },
+        {
+            "question": "What can the built-in speaker do instantly?",
+            "options": ["Sense magnetic fields", "Measure temperature", "Play sounds you create", "Detect light levels"],
+            "correct": 2,
+            "explanation": "The built-in speaker is an output device that can immediately play sounds and music.",
+            "image": null
+        },
+        {
+            "question": "What is another name for a digital compass on micro:bit?",
+            "options": ["Accelerometer", "Magnetometer", "Light sensor", "Temperature sensor"],
+            "correct": 1,
+            "explanation": "The magnetometer is the sensor that functions as a digital compass, detecting magnetic fields.",
+            "image": null
+        }
+    ]
+}
