@@ -1,0 +1,4 @@
+nicegui
+openai
+python-dotenv
+pytest
